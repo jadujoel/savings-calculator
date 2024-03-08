@@ -51,10 +51,6 @@
           background: none;
           border: none;
           color: #ccc;
-          font-size: 1.5em;
-          position: relative;
-          top: -40px;
-          left: 90%;
       }
       .result {
           margin-top: 2em;
@@ -96,7 +92,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>Savings Calculator<button class="info-button" onclick="openModal()">ℹ️</button></h2>
+        <h2 class="info-button" onclick="openModal()">Savings Calculator ℹ️</h2>
         <label for="nyears">Years:</label>
         <input type="number" id="nyears" value="10" oninput="calculate()"><br>
         <label for="initial">Initial Savings ($):</label>
@@ -110,14 +106,12 @@
         <button onclick="calculate()">Calculate</button>
         <div class="result" id="result"></div>
     </div>
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <p>This is a simple compound interest calculator. It will give you the future value of your savings in today's purchasing power.</p>
-      </div>
+    <div id="info" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <p>This is a simple compound interest calculator. It will give you the future value of your savings in today's purchasing power.</p>
+        </div>
     </div>
-
     <script>
         function realFromPercent(nominal, inflation) {
             return (1 + nominal / 100) / (1 + inflation / 100) - 1;
@@ -150,11 +144,11 @@
 
         // Modal script
         function openModal() {
-            document.getElementById("myModal").style.display = "block";
+            document.getElementById("info").style.display = "block";
         }
 
         function closeModal() {
-            document.getElementById("myModal").style.display = "none";
+            document.getElementById("info").style.display = "none";
         }
         calculate()
     </script>
