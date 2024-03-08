@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savings</title>
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          font-size: larger;
+          margin: 0;
+          padding: 0;
+          background-color: #333;
+          color: #ccc;
+          display: grid;
+          place-items: center;
+          height: 100vh;
+      }
+      h2 {
+        padding: 0;
+        margin: 0;
+        height: 2.1em;
+      }
+      .container {
+          background: #222;
+          padding: 2em;
+          border-radius: 5px;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+      label, input, button, .info-button {
+          display: block;
+          width: 100%;
+          padding: 0.4em
+      }
+      input, button {
+          padding: 1em;
+          border-radius: 5px;
+          border: 1px solid #555;
+          background: #555;
+          color: #fff;
+      }
+      input {
+        width: 90%;
+      }
+      button, .info-button {
+          cursor: pointer;
+          background-color: #007BFF;
+          text-align: center;
+      }
+      .info-button {
+          background: none;
+          border: none;
+          color: #ccc;
+          font-size: 1.5em;
+          position: relative;
+          top: -40px;
+          left: 90%;
+      }
+      .result {
+          margin-top: 2em;
+          color: #4CAF50;
+      }
+      .modal {
+          display: none;
+          position: fixed;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgb(0,0,0,0.4);
+          padding-top: 60px;
+      }
+      .modal-content {
+          background-color: #404040;
+          margin: 5% auto;
+          padding: 20px;
+          border: 1px solid #888;
+          width: 80%;
+          color: white;
+      }
+      .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+      }
+      .close:hover,
+      .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+      }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Savings Calculator<button class="info-button" onclick="openModal()">ℹ️</button></h2>
+        <label for="nyears">Years:</label>
+        <input type="number" id="nyears" value="10" oninput="calculate()"><br>
+        <label for="initial">Initial Savings ($):</label>
+        <input type="number" id="initial" value="0" oninput="calculate()"><br>
+        <label for="monthly">Monthly Savings ($):</label>
+        <input type="number" id="monthly" value="1000" oninput="calculate()"><br>
+        <label for="interest">Interest Rate (%):</label>
+        <input type="number" id="interest" value="11" oninput="calculate()"><br>
+        <label for="inflation">Inflation Rate (%):</label>
+        <input type="number" id="inflation" value="3" oninput="calculate()"><br>
+        <button onclick="calculate()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p>This is a simple compound interest calculator. It will give you the future value of your savings in today's purchasing power.</p>
+      </div>
+    </div>
+
+    <script>
+        function realFromPercent(nominal, inflation) {
+            return (1 + nominal / 100) / (1 + inflation / 100) - 1;
+        }
+
+        function format(num) {
+            return num.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        }
+
+        function calculate() {
+            const nyears = document.getElementById('nyears').value;
+            const initial = Number(document.getElementById('initial').value);
+            const monthly = Number(document.getElementById('monthly').value);
+            const interest = Number(document.getElementById('interest').value);
+            const inflation = Number(document.getElementById('inflation').value);
+
+            const real = realFromPercent(interest, inflation);
+            const multiplier = 1 + real;
+            let total = initial;
+
+            for (let i = 0; i < nyears; i++) {
+                for (let j = 0; j < 12; j++) {
+                    total += monthly;
+                }
+                total *= multiplier;
+            }
+
+            document.getElementById('result').innerHTML = `<strong>Result:</strong> ${format(total)}`;
+        }
+
+        // Modal script
+        function openModal() {
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+        calculate()
+    </script>
+</body>
+</html>
