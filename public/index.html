@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Savings</title>
     <style>
-      body {
+
+      html, body {
           font-family: Arial, sans-serif;
           font-size: larger;
           margin: 0;
@@ -14,7 +15,9 @@
           color: #ccc;
           display: grid;
           place-items: center;
+          overflow: hidden;
           height: 100vh;
+          width: 100vw;
       }
       .container {
           background: #222;
@@ -34,6 +37,7 @@
         padding: 0;
         margin: 0;
         text-align: center;
+        cursor: pointer;
       }
       .inputs, .result {
         padding: 0.2em;
@@ -100,7 +104,7 @@
 </head>
 <body>
     <div class="container">
-        <h2 >Savings Calculator ℹ️</h2><br>
+        <h2 onclick="openModal()">Savings Calculator ℹ️</h2><br>
         <label for="nyears">Years:</label>
         <input type="number" id="nyears" value="10" oninput="calculate()">
         <label for="initial">Initial Savings ($):</label>
