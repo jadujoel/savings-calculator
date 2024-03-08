@@ -16,45 +16,53 @@
           place-items: center;
           height: 100vh;
       }
-      h2 {
-        padding: 0;
-        margin: 0;
-        height: 2.1em;
-      }
       .container {
           background: #222;
-          padding: 2em;
+          padding: 1.4em;
           border-radius: 5px;
           box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+          display: grid;
+          grid-template-areas:
+            "header header"
+            "input output";
+          grid-template-columns: 1fr 1fr;
+          width: 90%; /* Adjust width as needed */
+          max-width: 600px;
       }
-      label, input, button, .info-button {
+      h2 {
+        grid-area: header;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+      }
+      .inputs, .result {
+        padding: 0.2em;
+      }
+      .inputs {
+        grid-area: input;
+      }
+      .result {
+        grid-area: output;
+        margin-top: 1.2em;
+        color: #4CAF50;
+      }
+      label, input, button {
           display: block;
-          width: 100%;
-          padding: 0.4em
+          width: 80%;
+          padding: 0.2em;
       }
       input, button {
           padding: 1em;
+          margin: 0.2em 0;
           border-radius: 5px;
           border: 1px solid #555;
           background: #555;
           color: #fff;
       }
-      input {
-        width: 90%;
-      }
-      button, .info-button {
+      button {
           cursor: pointer;
           background-color: #007BFF;
           text-align: center;
-      }
-      .info-button {
-          background: none;
-          border: none;
-          color: #ccc;
-      }
-      .result {
-          margin-top: 2em;
-          color: #4CAF50;
       }
       .modal {
           display: none;
@@ -79,7 +87,7 @@
       .close {
           color: #aaa;
           float: right;
-          font-size: 28px;
+          font-size: 3em;
           font-weight: bold;
       }
       .close:hover,
@@ -92,18 +100,17 @@
 </head>
 <body>
     <div class="container">
-        <h2 class="info-button" onclick="openModal()">Savings Calculator ℹ️</h2>
+        <h2 >Savings Calculator ℹ️</h2><br>
         <label for="nyears">Years:</label>
-        <input type="number" id="nyears" value="10" oninput="calculate()"><br>
+        <input type="number" id="nyears" value="10" oninput="calculate()">
         <label for="initial">Initial Savings ($):</label>
-        <input type="number" id="initial" value="0" oninput="calculate()"><br>
+        <input type="number" id="initial" value="0" oninput="calculate()">
         <label for="monthly">Monthly Savings ($):</label>
-        <input type="number" id="monthly" value="1000" oninput="calculate()"><br>
+        <input type="number" id="monthly" value="1000" oninput="calculate()">
         <label for="interest">Interest Rate (%):</label>
-        <input type="number" id="interest" value="11" oninput="calculate()"><br>
+        <input type="number" id="interest" value="11" oninput="calculate()">
         <label for="inflation">Inflation Rate (%):</label>
-        <input type="number" id="inflation" value="3" oninput="calculate()"><br>
-        <button onclick="calculate()">Calculate</button>
+        <input type="number" id="inflation" value="3" oninput="calculate()">
         <div class="result" id="result"></div>
     </div>
     <div id="info" class="modal">
